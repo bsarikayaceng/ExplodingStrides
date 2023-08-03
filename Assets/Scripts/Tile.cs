@@ -8,7 +8,7 @@ public class Tile : MonoBehaviour
     private UnitState _unitState;
     public MeshRenderer MyMeshRenderer;
 
-    private bool isGameOver = false; // Oyunun bitip bitmediðini belirten deðiþken
+    private bool isGameOver = false; // Oyunun bitti mi?
 
     public void Prepare(UnitState state)
     {
@@ -19,7 +19,7 @@ public class Tile : MonoBehaviour
     {
         if (isGameOver)
         {
-            return; // Oyun bitmiþse týklamalarý iþleme
+            return; // Oyun bitmiþse týklamalar devredisi
         }
         else if (_unitState == UnitState.Mine)
         {
