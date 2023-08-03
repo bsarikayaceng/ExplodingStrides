@@ -7,36 +7,32 @@ public class Tile : MonoBehaviour
     public UnitState UnitState => _unitState;
     private UnitState _unitState;
     public MeshRenderer MyMeshRenderer;
+    private GridManager gridManager;
 
-    private bool isGameOver = false; // Oyunun bitti mi?
+    private void Awake()
+    {
+        gridManager = FindObjectOfType<GridManager>();
+    }
 
     public void Prepare(UnitState state)
     {
         _unitState = state;
-       // MyMeshRenderer.material.color = _unitState == UnitState.Mine ? Color.red : Color.green;
     }
     public void OnTileClick()
     {
-        if (isGameOver)
+        if (gridManager.IsGameOver())
         {
-            return; // Oyun bitmiþse týklamalar devredisi
+            return; // Oyun bitmiþse týklamalar devre dýþý
         }
-        else if (_unitState == UnitState.Mine)
+        if (_unitState == UnitState.Mine)
         {
-            Debug.Log("Mayýna týklandý!");
-            GameOver();
+            Debug.Log("Mayýna týklandý");
+            gridManager.GameOver();
         }
         else
         {
-            Debug.Log("Mayýna týklanmadý!");
+            Debug.Log("Mayýna týklanmadý");
         }
-    }
-
-    private void GameOver()
-    {
-        // Oyunu bitirme iþlemleri burada yapýlabilir
-        isGameOver = true;
-        Debug.Log("Oyun bitti!");
     }
 }
     public enum UnitState

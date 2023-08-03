@@ -13,7 +13,7 @@ public class GridManager : MonoBehaviour
 
     public float minePercentage = 0.2f; // Mayýn yüzdesi
     private List<Vector2Int> minePositions = new List<Vector2Int>(); // Mayýn konumlarýný tutacak liste
-
+    private bool isGameOver = false;
     private void Start()
     {
         CreateGrid();
@@ -57,7 +57,7 @@ public class GridManager : MonoBehaviour
             int x = Random.Range(0, gridSizeX);
             int y = Random.Range(0, gridSizeY);
 
-            // Eðer bu konumda zaten bir mayýn varsa, tekrar seçmek için i'yi azalt
+            // Eðer bu konumda zaten bir mayýn varsa tekrar seçmek için i'yi azalt
             if (minePositions.Contains(new Vector2Int(x, y)))
             {
                 i--;
@@ -69,4 +69,16 @@ public class GridManager : MonoBehaviour
             }
         }
     }
+
+    public void GameOver()
+    {
+        isGameOver = true;
+        Debug.Log("Oyun bitti!");
+    }
+
+    public bool IsGameOver()
+    {
+        return isGameOver;
+    }
+
 }
