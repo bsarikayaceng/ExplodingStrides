@@ -1,0 +1,55 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+using System;
+
+public class TileController : MonoBehaviour
+{
+    public static void PrintNeighbourCoordinates()
+    {
+        List<Vector2Int> neighbourCoordinates = new List<Vector2Int>();
+
+        foreach (var minePosition in GridManager.minePositions)
+        {
+            AddNeighbourCoordinates(neighbourCoordinates, minePosition);
+        }
+
+        foreach (var coordinate in neighbourCoordinates)
+        {
+            Debug.Log("Komþu Koordinatlarý X: " + coordinate.x + ", Y: " + coordinate.y);
+        }
+    }
+
+    private static void AddNeighbourCoordinates(List<Vector2Int> neighbourCoordinates, Vector2Int minePosition)
+    {
+        int startX = Mathf.Max(minePosition.x - 1, 0);
+        int startY = Mathf.Max(minePosition.y - 1, 0);
+        int endX = Mathf.Min(minePosition.x + 1, GridManager.gridSizeX - 1);
+        int endY = Mathf.Min(minePosition.y + 1, GridManager.gridSizeY - 1);
+
+        for (int x = startX; x <= endX; x++)
+        {
+            for (int y = startY; y <= endY; y++)
+            {
+                if (x == minePosition.x && y == minePosition.y)
+                    continue; // Kendi pozisyonunu atlamak için
+
+                Vector2Int neighbourPosition = new Vector2Int(x, y);
+
+                if (!neighbourCoordinates.Contains(neighbourPosition)&& !GridManager.minePositions.Contains(neighbourPosition))
+                {
+                    neighbourCoordinates.Add(neighbourPosition);
+                }
+            }
+        }
+    }
+
+
+
+}
+public enum TileState
+{
+    Empty,
+    Mine
+}
