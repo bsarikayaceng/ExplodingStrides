@@ -8,6 +8,8 @@ public class Tile : MonoBehaviour
     private UnitState _unitState;
     public MeshRenderer MyMeshRenderer;
     private GridManager gridManager;
+    public TileController tileController;
+
 
     private void Awake()
     {
@@ -40,3 +42,4 @@ public class Tile : MonoBehaviour
         Empty,
         Mine
     }
+

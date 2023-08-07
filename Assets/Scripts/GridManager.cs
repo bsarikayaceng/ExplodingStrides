@@ -4,26 +4,30 @@ using System.Collections.Generic;
 
 public class GridManager : MonoBehaviour
 {
-    public int gridSizeX;
-    public int gridSizeY;
+    public static int gridSizeX=5;
+    public static int gridSizeY=5;
     public float cellSize;
     public Tile[,] _grid;
 
     public Tile tilePrefab;
-
-    public float minePercentage = 0.2f; // Mayýn yüzdesi
-    private List<Vector2Int> minePositions = new List<Vector2Int>(); // Mayýn konumlarýný tutacak liste
     private bool isGameOver = false;
+    public float minePercentage = 0.2f; // Mayýn yüzdesi
+    public static List<Vector2Int> minePositions = new List<Vector2Int>(); // Mayýn konumlarýný tutacak liste
     private void Start()
     {
         CreateGrid();
-        Vector3 newPosition = new Vector3(28.2f, -2.9f, 30.2f);
+        Vector3 newPosition = new Vector3(-3.6f, 0.52f, 6.97f);
         transform.position = newPosition;
 
-        Vector3 newRotation = new Vector3(-72.886f, 179.264f, -3.437f);
+        Vector3 newRotation = new Vector3(-126.24f, -196.3f, 1.2f);
         transform.eulerAngles = newRotation;
 
+        Vector3 newScale = new Vector3(0.039f, 0.039f, 0.039f);
+        transform.localScale = newScale;
+
         PlaceMines();
+        PrintMinePositions();
+        TileController.PrintNeighbourCoordinates();
     }
 
     private void CreateGrid()
@@ -40,6 +44,7 @@ public class GridManager : MonoBehaviour
 
                 newTile.transform.parent = transform;
                 newTile.transform.localPosition = position;
+                //_grid[x, y].tileController.UpdateMineCount();
             }
         }
 
@@ -70,6 +75,13 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    private void PrintMinePositions()
+    {
+        foreach (var position in minePositions)
+        {
+            Debug.Log("Mayýn Burada X: " + position.x + ", Y: " + position.y);
+        }
+    }
     public void GameOver()
     {
         isGameOver = true;
@@ -80,5 +92,4 @@ public class GridManager : MonoBehaviour
     {
         return isGameOver;
     }
-
 }
