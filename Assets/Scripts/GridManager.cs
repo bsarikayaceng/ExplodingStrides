@@ -16,14 +16,8 @@ public class GridManager : MonoBehaviour
     private void Start()
     {
         CreateGrid();
-        Vector3 newPosition = new Vector3(-3.6f, 0.52f, 6.97f);
+        Vector3 newPosition = new Vector3(-5.8f, 0f, 8f);
         transform.position = newPosition;
-
-        Vector3 newRotation = new Vector3(-126.24f, -196.3f, 1.2f);
-        transform.eulerAngles = newRotation;
-
-        Vector3 newScale = new Vector3(0.039f, 0.039f, 0.039f);
-        transform.localScale = newScale;
 
         PlaceMines();
         PrintMinePositions();
@@ -38,12 +32,14 @@ public class GridManager : MonoBehaviour
         {
             for (int x = 0; x < gridSizeX; x++)
             {
-                Vector3 position = new Vector3(x * cellSize, y * cellSize, 0);
+                Vector3 position = new Vector3(x * cellSize, 0f, y * cellSize);
                 Tile newTile = Instantiate(tilePrefab);
                 _grid[x, y] = newTile;
 
                 newTile.transform.parent = transform;
                 newTile.transform.localPosition = position;
+                Vector3 newRotation = new Vector3(-90, 0, 0);
+                newTile.transform.localEulerAngles = newRotation;
                 //_grid[x, y].tileController.UpdateMineCount();
             }
         }
@@ -62,7 +58,7 @@ public class GridManager : MonoBehaviour
             int x = Random.Range(0, gridSizeX);
             int y = Random.Range(0, gridSizeY);
 
-            // Eðer bu konumda zaten bir mayýn varsa tekrar seçmek için i'yi azalt
+            // Eðer burada zaten mayýn varsa tekrar seç i'yi azalt
             if (minePositions.Contains(new Vector2Int(x, y)))
             {
                 i--;
@@ -70,7 +66,7 @@ public class GridManager : MonoBehaviour
             else
             {
                 minePositions.Add(new Vector2Int(x, y));
-                _grid[x, y].Prepare(UnitState.Mine); // Mayýný prepare etmek için tile'ýn UnitState'ini Mine olarak ayarlýyoruz
+                _grid[x, y].Prepare(UnitState.Mine); //tile'ýn UnitState'ini Mine burada yapýyoruz
             }
         }
     }
