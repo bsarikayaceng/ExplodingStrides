@@ -104,6 +104,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MyMeshRenderer: {fileID: 6973583854134197895}
   tileController: {fileID: 2448068182282032907}
+  x: 0
+  y: 0
+  mineCountText: {fileID: 9069632131708175102}
 --- !u!65 &8823262327962922368
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -11,7 +11,9 @@ public class TouchController : MonoBehaviour
         Tile clickedTile = GetComponent<Tile>();
         if (clickedTile != null)
         {
+            print("on mouse down");
             clickedTile.OnTileClick();
+
         }
     }
 

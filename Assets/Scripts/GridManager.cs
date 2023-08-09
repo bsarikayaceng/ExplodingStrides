@@ -4,6 +4,12 @@ using System.Collections.Generic;
 
 public class GridManager : MonoBehaviour
 {
+    public static GridManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     public static int gridSizeX=5;
     public static int gridSizeY=5;
     public float cellSize;
@@ -34,6 +40,7 @@ public class GridManager : MonoBehaviour
             {
                 Vector3 position = new Vector3(x * cellSize, 0f, y * cellSize);
                 Tile newTile = Instantiate(tilePrefab);
+                newTile.GetCoordinates(x,y);
                 _grid[x, y] = newTile;
 
                 newTile.transform.parent = transform;
@@ -78,6 +85,12 @@ public class GridManager : MonoBehaviour
             Debug.Log("Mayýn Burada X: " + position.x + ", Y: " + position.y);
         }
     }
+
+    public Tile GetTileAtPosition(int x, int y)
+    {
+        return _grid[x, y];
+    }
+
     public void GameOver()
     {
         isGameOver = true;
