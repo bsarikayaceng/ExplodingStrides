@@ -2,18 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Tile : MonoBehaviour
 {
     public UnitState UnitState => _unitState;
     private UnitState _unitState;
-    public MeshRenderer MyMeshRenderer;
+    public GameObject grass;
     private GridManager gridManager;
     public TileController tileController;
     public int x;
     public int y;
     public TextMeshPro mineCountText;
-
+    public GameObject gameOver;
     private void Awake()
     {
         gridManager = FindObjectOfType<GridManager>();
@@ -33,8 +34,6 @@ public class Tile : MonoBehaviour
     }
     public void OnTileClick()
     {
-        print("tileýn ontileclicki");
-        //tileController.CalculateMineNeighborMineCounts();
         if (gridManager.IsGameOver())
         {
             return; // Oyun bitmiþse týklamalar devre dýþý
@@ -43,23 +42,16 @@ public class Tile : MonoBehaviour
         {
             Debug.Log("Mayýna týklandý");
             gridManager.GameOver();
+           // gameOver.SetActive(true);
+           // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
         }
         else
         {
-
+            grass.SetActive(false);
             Debug.Log("Mayýna týklanmadý");
 
-            
-            //TileController tileController = GetComponent<TileController>();
-            //tileController.PrintNeighborMineCounts(x,y);
-
-            //TileController controllerInstance = new TileController();
-          //  int neighborMineCount = controllerInstance.CalculateNeighborMineCount(x, y);
-
-           int neighborMineCount = tileController.CalculateNeighborMineCount(x, y);
+            int neighborMineCount = tileController.CalculateNeighborMineCount(x, y);
             mineCountText.text = neighborMineCount.ToString();
-            //int neighborMineCount = tileController.CalculateNeighborMineCount(transform.position.x, transform.position.z);
-            // mineCountText.text = tileController.neighborMineCount.ToString();
         }
     }
 }

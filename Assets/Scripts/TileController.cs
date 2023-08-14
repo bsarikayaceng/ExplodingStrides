@@ -99,8 +99,6 @@ public class TileController : MonoBehaviour
         int startY = Mathf.Max(y - 1, 0);
         int endX = Mathf.Min(x + 1, GridManager.gridSizeX - 1);
         int endY = Mathf.Min(y + 1, GridManager.gridSizeY - 1);
-        Debug.Log($"x, y: {x}, {y}");
-        Debug.Log($"StartX: {startX}, StartY {startY}, EndX {endX},EndY {endY}");
         neighborMineCount = 0;
 
         for (int i = startX; i <= endX; i++)
@@ -111,8 +109,6 @@ public class TileController : MonoBehaviour
                     continue; // Kendi pozisyonunu atlamak için
 
                 Tile neighborTile = GridManager.Instance.GetTileAtPosition(i, j);
-                Debug.Log($"i: {i},j {j}");
-                Debug.Log($"X: {neighborTile.x},Y {neighborTile.y}");
 
                 if (neighborTile.UnitState == UnitState.Mine)
                 {

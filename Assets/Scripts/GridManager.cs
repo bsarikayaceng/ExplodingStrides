@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
-
+using TMPro;
 public class GridManager : MonoBehaviour
 {
+    public TextMeshProUGUI statusText;
     public static GridManager Instance { get; private set; }
 
     private void Awake()
@@ -22,7 +23,7 @@ public class GridManager : MonoBehaviour
     private void Start()
     {
         CreateGrid();
-        Vector3 newPosition = new Vector3(-5.8f, 0f, 8f);
+        Vector3 newPosition = new Vector3(-4.63f, 0f, -8.18f);
         transform.position = newPosition;
 
         PlaceMines();
@@ -91,10 +92,16 @@ public class GridManager : MonoBehaviour
         return _grid[x, y];
     }
 
+    public void Win()
+    {
+        statusText.text = "You Win Bitch <3";
+    }
     public void GameOver()
     {
         isGameOver = true;
         Debug.Log("Oyun bitti!");
+        GameManager.Instance.GameOver();
+        //statusText.text = "You Lost Loser :P";
     }
 
     public bool IsGameOver()
