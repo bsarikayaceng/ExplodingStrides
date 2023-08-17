@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 public class Tile : MonoBehaviour
 {
     public UnitState UnitState => _unitState;
+
+    public TileState TileState { get; internal set; }
+
     private UnitState _unitState;
     public GameObject grass;
     private GridManager gridManager;
@@ -15,6 +18,8 @@ public class Tile : MonoBehaviour
     public int y;
     public TextMeshPro mineCountText;
     public GameObject gameOver;
+
+
     private void Awake()
     {
         gridManager = FindObjectOfType<GridManager>();
@@ -34,30 +39,47 @@ public class Tile : MonoBehaviour
     }
     public void OnTileClick()
     {
-        if (gridManager.IsGameOver())
+        if (gridManager.IsGameOver() || gridManager.IsTileClicked(new Vector2Int(x, y)))
         {
             return; // Oyun bitmiþse týklamalar devre dýþý
         }
+
+        int neighborMineCount = tileController.CalculateNeighborMineCount(x, y);
+
         if (_unitState == UnitState.Mine)
         {
             Debug.Log("Mayýna týklandý");
             gridManager.GameOver();
-           // gameOver.SetActive(true);
-           // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
         }
         else
         {
             grass.SetActive(false);
-            Debug.Log("Mayýna týklanmadý");
 
-            int neighborMineCount = tileController.CalculateNeighborMineCount(x, y);
-            mineCountText.text = neighborMineCount.ToString();
+            if (neighborMineCount == 0)
+            {
+                mineCountText.text = neighborMineCount.ToString();
+            }
+            else
+            {
+                Debug.Log("Mayýna týklanmadý");
+                mineCountText.text = neighborMineCount.ToString();
+            }
+
+            Debug.Log($"Týklanan karenin koordinatlarý: X = {x}, Y = {y}");
         }
     }
+
 }
-    public enum UnitState
-    {
-        Empty,
-        Mine
-    }
+
+public enum UnitState
+{
+     Empty,
+     Mine
+}
+
+public enum TileState
+{
+    Open,
+    Revealed
+}
 

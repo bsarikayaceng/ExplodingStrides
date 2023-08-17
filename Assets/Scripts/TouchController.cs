@@ -7,7 +7,6 @@ public class TouchController : MonoBehaviour
 {
     public void OnMouseDown()
     {
-       // Debug.Log("OnClick Down");
         Tile clickedTile = GetComponent<Tile>();
         if (clickedTile != null)
         {
@@ -15,10 +14,5 @@ public class TouchController : MonoBehaviour
             clickedTile.OnTileClick();
 
         }
-    }
-
-    public void OnMouseUp()
-    {
-      //  Debug.Log("OnClick Up");
     }
 }

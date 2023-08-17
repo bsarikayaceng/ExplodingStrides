@@ -11,15 +11,17 @@ public class GridManager : MonoBehaviour
     {
         Instance = this;
     }
-    public static int gridSizeX=5;
-    public static int gridSizeY=5;
+    public static int gridSizeX;
+    public static int gridSizeY;
     public float cellSize;
     public Tile[,] _grid;
 
     public Tile tilePrefab;
     private bool isGameOver = false;
     public float minePercentage = 0.2f; // Mayýn yüzdesi
-    public static List<Vector2Int> minePositions = new List<Vector2Int>(); // Mayýn konumlarýný tutacak liste
+    public List<Vector2Int> minePositions = new List<Vector2Int>(); // Mayýn konumlarýný tutacak liste
+    private List<Vector2Int> clickedTiles = new List<Vector2Int>(); //Týklanan kareleri tutacak liste
+
     private void Start()
     {
         CreateGrid();
@@ -33,6 +35,8 @@ public class GridManager : MonoBehaviour
 
     private void CreateGrid()
     {
+        gridSizeX = PlayerPrefs.GetInt("Grid Size X");
+        gridSizeY = PlayerPrefs.GetInt("Grid Size Y");
         _grid = new Tile[gridSizeX, gridSizeY];
 
         for (int y = 0; y < gridSizeY; y++)
@@ -91,6 +95,21 @@ public class GridManager : MonoBehaviour
     {
         return _grid[x, y];
     }
+
+    public void AddTileToList(Vector2Int tileCoordinates)
+    {
+        if (!clickedTiles.Contains(tileCoordinates))
+        {
+            clickedTiles.Add(tileCoordinates);
+        }
+    }
+
+    // Týklanýlan kareleri kontrol etme
+    public bool IsTileClicked(Vector2Int tileCoordinates)
+    {
+        return clickedTiles.Contains(tileCoordinates);
+    }
+
 
     public void Win()
     {
