@@ -1,32 +1,46 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public Slider difficultySlider;
-    public GameObject gameOver;
 
     private void Awake()
     {
         Instance = this;
     }
-    public void PlayGame()
+
+    /*private void OnEnable()
     {
-        DifficulityManager difficulityManager = GetComponent<DifficulityManager>();
-        if (difficulityManager != null)
+        if (UIController.Instance == null)
         {
-            DifficulityManager.Instance.difficultySlider.value = difficultySlider.value;
+            UIController uiController = FindObjectOfType<UIController>();
+            
+            uiController.GetNewGameButton().onClick.AddListener(PlayGame);
         }
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        print("rimelim akmis ayol");
+        else
+        {
+            UIController.Instance.GetNewGameButton().onClick.AddListener(PlayGame);   
+        }
+    }*/
+    
+    private void Start()
+    {
+        UIController.Instance.GetNewGameButton().onClick.AddListener(PlayGame);
     }
 
-    public void GameOver()
+
+    private void OnDisable()
     {
-        gameOver.SetActive(true);
+        UIController.Instance.GetNewGameButton().onClick.RemoveListener(PlayGame);
     }
+
+    private void PlayGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        
+        Debug.Log("<color=lime>Rimelim akmış ayol</color>");
+    }
+
+    public void GameOver() => UIController.Instance.ActivateGameOverPanel();
 }
