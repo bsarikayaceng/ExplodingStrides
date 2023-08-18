@@ -21,4 +21,6 @@ public class UIController : MonoBehaviour
     public Slider GetDifficultySlider() => _difficultySlider;
 
     public void ActivateGameOverPanel() => _gameOverPanel.SetActive(true);
+
+    public void SetDifficultySliderValue(int selectedDifficulty) => _difficultySlider.value = selectedDifficulty;
 }
