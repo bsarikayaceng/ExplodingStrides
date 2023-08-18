@@ -598,7 +598,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7348293224812032786}
         m_TargetAssemblyTypeName: GameOverScreen, Assembly-CSharp
-        m_MethodName: RestartGame
+        m_MethodName: MainMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
