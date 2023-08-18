@@ -8,7 +8,7 @@ public class TileController : MonoBehaviour
     {
         List<Vector2Int> neighbourCoordinates = new List<Vector2Int>();
 
-        foreach (var minePosition in GridManager.Instance.minePositions)
+        foreach (var minePosition in GridManager.Instance.MinePositions)
         {
             AddNeighbourCoordinates(neighbourCoordinates, minePosition);
         }
@@ -35,7 +35,7 @@ public class TileController : MonoBehaviour
 
                 Vector2Int neighbourPosition = new Vector2Int(x, y);
 
-                if (!neighbourCoordinates.Contains(neighbourPosition) && !GridManager.Instance.minePositions.Contains(neighbourPosition))
+                if (!neighbourCoordinates.Contains(neighbourPosition) && !GridManager.Instance.MinePositions.Contains(neighbourPosition))
                 {
                     neighbourCoordinates.Add(neighbourPosition);
                 }
