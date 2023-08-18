@@ -4,22 +4,21 @@ using TMPro;
 public class GridManager : MonoBehaviour
 {
     public static GridManager Instance { get; private set; }
-    public List<Vector2Int> MinePositions { get => minePositions; set => minePositions = value; }
 
     public static int gridSizeX;
     public static int gridSizeY;
     
     public TextMeshProUGUI statusText;
-    private List<Vector2Int> minePositions = new(); // Mayýn konumlarýný tutacak liste
-
-    private float _cellSize = 2.5f;
+    public List<Vector2Int> minePositions = new List<Vector2Int>(); // Mayýn konumlarýný tutacak liste
+    
+    private float _cellSize = 2.414f;
     private Tile[,] _grid;
 
     public Tile tilePrefab;
     private bool isGameOver = false;
     public float minePercentage = 0.2f; // Mayýn yüzdesi
     
-    private List<Vector2Int> clickedTiles = new(); //Týklanan kareleri tutacak liste
+    private List<Vector2Int> clickedTiles = new List<Vector2Int>(); //Týklanan kareleri tutacak liste
 
     private void Awake()
     {
@@ -29,10 +28,8 @@ public class GridManager : MonoBehaviour
     private void Start()
     {
         CreateGrid();
-        Debug.Log("<color=magenta> Ben caliscam simdi</color>");
-        GridTransformController(transform);
-       // Vector3 newPosition = new Vector3(-4.63f, 0f, -8.18f);
-        //transform.position = newPosition;
+        Vector3 newPosition = new Vector3(-4.63f, 0f, -8.18f);
+        transform.position = newPosition;
 
         PlaceMines();
         PrintMinePositions();
@@ -75,13 +72,13 @@ public class GridManager : MonoBehaviour
             int y = Random.Range(0, gridSizeY);
 
             // Eðer burada zaten mayýn varsa tekrar seç i'yi azalt
-            if (MinePositions.Contains(new Vector2Int(x, y)))
+            if (minePositions.Contains(new Vector2Int(x, y)))
             {
                 i--;
             }
             else
             {
-                MinePositions.Add(new Vector2Int(x, y));
+                minePositions.Add(new Vector2Int(x, y));
                 _grid[x, y].Prepare(UnitState.Mine); //tile'ýn UnitState'ini Mine burada yapýyoruz
             }
         }
@@ -89,7 +86,7 @@ public class GridManager : MonoBehaviour
 
     private void PrintMinePositions()
     {
-        foreach (var position in MinePositions)
+        foreach (var position in minePositions)
         {
             Debug.Log("Mayýn Burada X: " + position.x + ", Y: " + position.y);
         }
@@ -112,33 +109,6 @@ public class GridManager : MonoBehaviour
     public bool IsTileClicked(Vector2Int tileCoordinates)
     {
         return clickedTiles.Contains(tileCoordinates);
-    }
-
-    public void GridTransformController(Transform GridManagerTransform) // yer ayarlama for grid clones
-    {
-        if (gridSizeX == 5 && gridSizeY == 5)
-        {
-            Vector3 newPosition = new Vector3(-4.5f, -2.2f, -8f);
-            GridManagerTransform.position = newPosition;
-        }
-        
-        else if (gridSizeX == 7 && gridSizeY == 7)
-        {
-            Vector3 newPosition = new Vector3(-4.5f, -2.2f, -8f);
-            GridManagerTransform.position = newPosition;
-            Vector3 newScale = new Vector3(0.7f, 0.7f, 0.7f);
-            GridManagerTransform.localScale = newScale;
-            Debug.Log("<color=blue> ben 7'im ve yerime oturdum tatlim</color>");
-        }
- 
-        else if(gridSizeX == 10 && gridSizeY == 10)
-        {
-            Vector3 newPosition = new Vector3(-5.5f, -2.2f, -9f);
-            GridManagerTransform.position = newPosition;
-            Vector3 newScale = new Vector3(0.5f, 0.5f, 0.5f);
-            GridManagerTransform.localScale = newScale;
-            Debug.Log("<color=cyan> ben 10um ama onsuzum..</color>");
-        }
     }
 
 
