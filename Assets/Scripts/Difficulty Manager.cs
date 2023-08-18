@@ -1,23 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class DifficulityManager : MonoBehaviour
+public class DifficultyManager : MonoBehaviour
 {
-    public Slider difficultySlider;
-
-    public static DifficulityManager Instance { get; private set; }
+    public static DifficultyManager Instance { get; private set; }
 
     private void Awake()
     {
         Instance = this;
-        difficultySlider = GetComponent<Slider>();
     }
 
-    public void UpdateGridSize()
+    /*private void OnEnable()
     {
-        int selectedDifficulty = Mathf.RoundToInt(difficultySlider.value);
+        UIController.Instance.GetDifficultySlider().onValueChanged.AddListener(UpdateGridSize);
+    }*/
+    
+    private void Start()
+    {
+        UIController.Instance.GetDifficultySlider().onValueChanged.AddListener(UpdateGridSize);
+    }
+
+    private void OnDisable()
+    {
+        UIController.Instance.GetDifficultySlider().onValueChanged.RemoveListener(UpdateGridSize);
+    }
+
+    private void UpdateGridSize(float sliderValue)
+    {
+        int selectedDifficulty = Mathf.RoundToInt((int) sliderValue);
 
         int gridSizeX = 5; // Default
         int gridSizeY = 5; 

@@ -41,14 +41,14 @@ public class Tile : MonoBehaviour
     {
         if (gridManager.IsGameOver() || gridManager.IsTileClicked(new Vector2Int(x, y)))
         {
-            return; // Oyun bitmişse tıklamalar devre dışı
+            return; // Oyun bitmiÅŸse tÄ±klamalar devre dÄ±ÅŸÄ±
         }
 
         int neighborMineCount = tileController.CalculateNeighborMineCount(x, y);
 
         if (_unitState == UnitState.Mine)
         {
-            Debug.Log("Mayına tıklandı");
+            Debug.Log("MayÄ±na tÄ±klandÄ±");
             gridManager.GameOver();
         }
         else
@@ -61,11 +61,11 @@ public class Tile : MonoBehaviour
             }
             else
             {
-                Debug.Log("Mayına tıklanmadı");
+                Debug.Log("MayÄ±na tÄ±klanmadÄ±");
                 mineCountText.text = neighborMineCount.ToString();
             }
 
-            Debug.Log($"Tıklanan karenin koordinatları: X = {x}, Y = {y}");
+            Debug.Log($"TÄ±klanan karenin koordinatlarÄ±: X = {x}, Y = {y}");
         }
     }
 
