@@ -159,28 +159,28 @@ public class GridManager : MonoBehaviour
     {
         if (_gridSizeX == 5 && _gridSizeY == 5)
         {
-            Vector3 newPosition = new Vector3(-4.5f, -2.2f, -8f);
-            GridManagerTransform.position = newPosition;
+            Initialize(GridManagerTransform, new Vector3(-4.5f, -2.2f, -8f), new Vector3(1, 1, 1));
         }
         
         else if (_gridSizeX == 7 && _gridSizeY == 7)
         {
-            Vector3 newPosition = new Vector3(-4.5f, -2.2f, -8f);
-            GridManagerTransform.position = newPosition;
-            Vector3 newScale = new Vector3(0.7f, 0.7f, 0.7f);
-            GridManagerTransform.localScale = newScale;
+            Initialize(GridManagerTransform, new Vector3(-5f, -2.2f, -8.5f), new Vector3(0.7f, 0.7f, 0.7f));
             Debug.Log("<color=blue> ben 7'im ve yerime oturdum tatlim</color>");
         }
  
         else if(_gridSizeX == 10 && _gridSizeY == 10)
         {
-            Vector3 newPosition = new Vector3(-5.5f, -2.2f, -9f);
-            GridManagerTransform.position = newPosition;
-            Vector3 newScale = new Vector3(0.5f, 0.5f, 0.5f);
-            GridManagerTransform.localScale = newScale;
+            Initialize(GridManagerTransform, new Vector3(-5.5f, -2.2f, -9f), new Vector3(0.5f, 0.5f, 0.5f));
             Debug.Log("<color=cyan> ben 10um ama onsuzum..</color>");
         }
     }
+
+    private static void Initialize(Transform transform, Vector3 position, Vector3 scale)
+    {
+        transform.position = position;
+        transform.localScale = scale;
+    }
+
 
 
     public void Win()
