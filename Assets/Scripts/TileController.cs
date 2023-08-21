@@ -23,8 +23,8 @@ public class TileController : MonoBehaviour
     {
         int startX = Mathf.Max(minePosition.x - 1, 0);
         int startY = Mathf.Max(minePosition.y - 1, 0);
-        int endX = Mathf.Min(minePosition.x + 1, GridManager.gridSizeX - 1);
-        int endY = Mathf.Min(minePosition.y + 1, GridManager.gridSizeY - 1);
+        int endX = Mathf.Min(minePosition.x + 1, GridManager.Instance.GetGridSizeX - 1);
+        int endY = Mathf.Min(minePosition.y + 1, GridManager.Instance.GetGridSizeY - 1);
 
         for (int x = startX; x <= endX; x++)
         {
@@ -47,8 +47,8 @@ public class TileController : MonoBehaviour
     {
         int startX = Mathf.Max(x - 1, 0);
         int startY = Mathf.Max(y - 1, 0);
-        int endX = Mathf.Min(x + 1, GridManager.gridSizeX - 1);
-        int endY = Mathf.Min(y + 1, GridManager.gridSizeY - 1);
+        int endX = Mathf.Min(x + 1, GridManager.Instance.GetGridSizeX - 1);
+        int endY = Mathf.Min(y + 1, GridManager.Instance.GetGridSizeY - 1);
         neighborMineCount = 0;
 
         for (int i = startX; i <= endX; i++)

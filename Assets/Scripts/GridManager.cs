@@ -1,13 +1,19 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 public class GridManager : MonoBehaviour
 {
     public static GridManager Instance { get; private set; }
+    
+    [SerializeField]
+    private Transform _gridStartPositionTransform;
+    
     public List<Vector2Int> MinePositions { get => minePositions; set => minePositions = value; }
 
-    public static int gridSizeX;
-    public static int gridSizeY;
+    private int _gridSizeX;
+    private int _gridSizeY;
     
     public TextMeshProUGUI statusText;
     private List<Vector2Int> minePositions = new(); // Mayýn konumlarýný tutacak liste
@@ -21,6 +27,13 @@ public class GridManager : MonoBehaviour
     
     private List<Vector2Int> clickedTiles = new(); //Týklanan kareleri tutacak liste
 
+    private Dictionary<DifficultyType, int> _difficultyTypeToGridSize = new()
+    {
+        { DifficultyType.Easy, 5 },
+        { DifficultyType.Medium, 7 },
+        { DifficultyType.Hard, 10 }
+    };
+
     private void Awake()
     {
         Instance = this;
@@ -28,51 +41,79 @@ public class GridManager : MonoBehaviour
 
     private void Start()
     {
-        CreateGrid();
-        Debug.Log("<color=magenta> Ben caliscam simdi</color>");
-        GridTransformController(transform);
-       // Vector3 newPosition = new Vector3(-4.63f, 0f, -8.18f);
-        //transform.position = newPosition;
+        if (!PlayerPrefs.HasKey(ConstantVariables.DifficultyKey))
+            SetGridSize(1);
+        
+        int selectedDifficulty = PlayerPrefs.GetInt(ConstantVariables.DifficultyKey);
+        
+        UIController.Instance.SetDifficultySliderValue(selectedDifficulty);
 
-        PlaceMines();
-        PrintMinePositions();
-        TileController.PrintNeighbourCoordinates();
+        int selectedDifficultyGridSize =
+            _difficultyTypeToGridSize[(DifficultyType) selectedDifficulty];
+
+        _gridSizeX = selectedDifficultyGridSize;
+        _gridSizeY = selectedDifficultyGridSize;
+
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            CreateGrid();
+            Debug.Log("<color=magenta> Ben caliscam simdi</color>");
+            GridTransformController(_gridStartPositionTransform);
+            // Vector3 newPosition = new Vector3(-4.63f, 0f, -8.18f);
+            //transform.position = newPosition;
+
+            PlaceMines();
+            PrintMinePositions();
+            TileController.PrintNeighbourCoordinates();
+        }
+        
+        UIController.Instance.GetDifficultySlider().onValueChanged.AddListener(SetGridSize);
+    }
+    
+    private void OnDisable()
+    {
+        UIController.Instance.GetDifficultySlider().onValueChanged.RemoveListener(SetGridSize);
     }
 
     private void CreateGrid()
     {
-        gridSizeX = PlayerPrefs.GetInt("Grid Size X");
-        gridSizeY = PlayerPrefs.GetInt("Grid Size Y");
-        _grid = new Tile[gridSizeX, gridSizeY];
+        _grid = new Tile[_gridSizeX, _gridSizeY];
 
-        for (int y = 0; y < gridSizeY; y++)
+        for (int y = 0; y < _gridSizeY; y++)
         {
-            for (int x = 0; x < gridSizeX; x++)
+            for (int x = 0; x < _gridSizeX; x++)
             {
                 Vector3 position = new Vector3(x * _cellSize, 0f, y * _cellSize);
-                Tile newTile = Instantiate(tilePrefab);
+                Tile newTile = Instantiate(tilePrefab, _gridStartPositionTransform.position,
+                    Quaternion.Euler(Vector3.right * -90f), _gridStartPositionTransform);
                 newTile.GetCoordinates(x,y);
                 _grid[x, y] = newTile;
 
-                newTile.transform.parent = transform;
                 newTile.transform.localPosition = position;
                 //_grid[x, y].tileController.UpdateMineCount();
             }
         }
 
-        Vector3 centerOffset = new Vector3(gridSizeX * _cellSize * 0.5f, gridSizeY * _cellSize * 0.5f, 0);
-        transform.position = -centerOffset;
+        /*Vector3 centerOffset = new Vector3(gridSizeX * _cellSize * 0.5f, gridSizeY * _cellSize * 0.5f, 0);
+        _gridStartPositionTransform.position = -centerOffset;*/
+    }
+
+    private void SetGridSize(float sliderValue)
+    {
+        PlayerPrefs.SetInt(ConstantVariables.DifficultyKey, (int) sliderValue);
+        
+        Debug.LogFormat($"<color=yellow>Difficulty set to {(DifficultyType) sliderValue}</color>");
     }
 
     private void PlaceMines()
     {
-        int totalTiles = gridSizeX * gridSizeY;
+        int totalTiles = _gridSizeX * _gridSizeY;
         int totalMines = Mathf.RoundToInt(totalTiles * minePercentage);
 
         for (int i = 0; i < totalMines; i++)
         {
-            int x = Random.Range(0, gridSizeX);
-            int y = Random.Range(0, gridSizeY);
+            int x = Random.Range(0, _gridSizeX);
+            int y = Random.Range(0, _gridSizeY);
 
             // Eðer burada zaten mayýn varsa tekrar seç i'yi azalt
             if (MinePositions.Contains(new Vector2Int(x, y)))
@@ -114,15 +155,15 @@ public class GridManager : MonoBehaviour
         return clickedTiles.Contains(tileCoordinates);
     }
 
-    public void GridTransformController(Transform GridManagerTransform) // yer ayarlama for grid clones
+    private void GridTransformController(Transform GridManagerTransform) // yer ayarlama for grid clones
     {
-        if (gridSizeX == 5 && gridSizeY == 5)
+        if (_gridSizeX == 5 && _gridSizeY == 5)
         {
             Vector3 newPosition = new Vector3(-4.5f, -2.2f, -8f);
             GridManagerTransform.position = newPosition;
         }
         
-        else if (gridSizeX == 7 && gridSizeY == 7)
+        else if (_gridSizeX == 7 && _gridSizeY == 7)
         {
             Vector3 newPosition = new Vector3(-4.5f, -2.2f, -8f);
             GridManagerTransform.position = newPosition;
@@ -131,7 +172,7 @@ public class GridManager : MonoBehaviour
             Debug.Log("<color=blue> ben 7'im ve yerime oturdum tatlim</color>");
         }
  
-        else if(gridSizeX == 10 && gridSizeY == 10)
+        else if(_gridSizeX == 10 && _gridSizeY == 10)
         {
             Vector3 newPosition = new Vector3(-5.5f, -2.2f, -9f);
             GridManagerTransform.position = newPosition;
@@ -155,4 +196,7 @@ public class GridManager : MonoBehaviour
     }
 
     public bool IsGameOver() => isGameOver;
+
+    public int GetGridSizeX => _gridSizeX;
+    public int GetGridSizeY => _gridSizeY;
 }
