@@ -7,22 +7,26 @@ using UnityEngine.SceneManagement;
 public class Tile : MonoBehaviour
 {
     public UnitState UnitState => _unitState;
-
-    public TileState TileState { get; internal set; }
-
     private UnitState _unitState;
-    public GameObject grass;
+
     private GridManager gridManager;
     public TileController tileController;
+
     public int x;
     public int y;
+
     public TextMeshPro mineCountText;
     public GameObject gameOver;
+    public GameObject grass;
+    
+
+    public static Tile Instance { get; private set; }
 
 
     private void Awake()
     {
         gridManager = FindObjectOfType<GridManager>();
+        Instance = this;
     }
 
 
@@ -39,7 +43,8 @@ public class Tile : MonoBehaviour
     }
     public void OnTileClick()
     {
-        if (gridManager.IsGameOver() || gridManager.IsTileClicked(new Vector2Int(x, y)))
+        GridManager.Instance.TileClickCount();
+        if (gridManager.IsGameOver())
         {
             return; // Oyun bitmişse tıklamalar devre dışı
         }
@@ -62,6 +67,7 @@ public class Tile : MonoBehaviour
             else
             {
                 Debug.Log("Mayına tıklanmadı");
+
                 mineCountText.text = neighborMineCount.ToString();
             }
 
@@ -75,11 +81,5 @@ public enum UnitState
 {
      Empty,
      Mine
-}
-
-public enum TileState
-{
-    Open,
-    Revealed
 }
 

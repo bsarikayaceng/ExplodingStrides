@@ -6,7 +6,7 @@ public class TileController : MonoBehaviour
     public int neighborMineCount;
     public static void PrintNeighbourCoordinates()
     {
-        List<Vector2Int> neighbourCoordinates = new List<Vector2Int>();
+        List<Vector2Int> neighbourCoordinates = new();
 
         foreach (var minePosition in GridManager.Instance.MinePositions)
         {

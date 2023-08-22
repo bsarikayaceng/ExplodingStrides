@@ -38,8 +38,6 @@ public class GameManager : MonoBehaviour
     private void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        
-        Debug.Log("<color=lime>Rimelim akmış ayol</color>");
     }
 
     public void GameOver() => UIController.Instance.ActivateGameOverPanel();

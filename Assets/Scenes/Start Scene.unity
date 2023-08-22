@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5985302, g: 0.5432155, b: 0.78464967, a: 1}
+  m_IndirectSpecularColor: {r: 0.59847367, g: 0.54318225, b: 0.7846521, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -484,6 +484,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 190659019}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -519,7 +520,6 @@ Transform:
   - {fileID: 1481245358}
   - {fileID: 1028935023}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &205259836
 GameObject:
@@ -581,13 +581,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 205259836}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &309155768
 PrefabInstance:
@@ -2038,13 +2038,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1349242039}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.2410041, y: 0.14294438, z: 0.012907092, w: 0.9598528}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 27.320002, y: 18.413, z: 6.0520005}
 --- !u!1001 &1463404878
 PrefabInstance:
@@ -2187,13 +2187,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1480377163}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.014324265, y: 0.9792869, z: 0.0747568, w: 0.18762589}
   m_LocalPosition: {x: -5.54, y: 0.49, z: 10.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -14.344001, y: 183.62099, z: 2.6130002}
 --- !u!1001 &1481245355
 PrefabInstance:
@@ -2427,6 +2427,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 834956261464012499, guid: c0aa26c06eef80744b71d544428bf39e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1178717368960323228, guid: c0aa26c06eef80744b71d544428bf39e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936510441208023757, guid: c0aa26c06eef80744b71d544428bf39e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2215367184591412460, guid: c0aa26c06eef80744b71d544428bf39e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3241961392558757127, guid: c0aa26c06eef80744b71d544428bf39e, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -2438,6 +2454,10 @@ PrefabInstance:
     - target: {fileID: 3241961392558757127, guid: c0aa26c06eef80744b71d544428bf39e, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3742490623976734326, guid: c0aa26c06eef80744b71d544428bf39e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4690806443785718749, guid: c0aa26c06eef80744b71d544428bf39e, type: 3}
       propertyPath: m_Pivot.x
@@ -2765,3 +2785,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4775219554002278, guid: 6b444276162548b4e9107350b71e775a, type: 3}
   m_PrefabInstance: {fileID: 2038063332}
   m_PrefabAsset: {fileID: 0}
+--- !u!1660057539 &9223372036854775807
+SceneRoots:
+  m_ObjectHideFlags: 0
+  m_Roots:
+  - {fileID: 1480377168}
+  - {fileID: 1349242041}
+  - {fileID: 190659020}
+  - {fileID: 1310071056}
+  - {fileID: 1570695823}
+  - {fileID: 205259839}

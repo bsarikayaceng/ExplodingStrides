@@ -22,9 +22,13 @@ public class GridManager : MonoBehaviour
     private Tile[,] _grid;
 
     public Tile tilePrefab;
-    private bool isGameOver = false;
+    public bool isGameOver = false;
+    public bool isGameWin = false;
     public float minePercentage = 0.2f; // Mayýn yüzdesi
-    
+
+    private int _clickedTileCount = 0;
+    private int _totalNotClickedTiles;
+
     private List<Vector2Int> clickedTiles = new(); //Týklanan kareleri tutacak liste
 
     private Dictionary<DifficultyType, int> _difficultyTypeToGridSize = new()
@@ -66,10 +70,26 @@ public class GridManager : MonoBehaviour
             PrintMinePositions();
             TileController.PrintNeighbourCoordinates();
         }
-        
+        int totalTiles = _gridSizeX * _gridSizeY;
+        _totalNotClickedTiles = Mathf.RoundToInt(totalTiles-(totalTiles * minePercentage));
         UIController.Instance.GetDifficultySlider().onValueChanged.AddListener(SetGridSize);
+        Debug.Log($"<color=aqua>totalTiles = {totalTiles}</color>");
     }
-    
+
+    internal void TileClickCount()
+    {
+        _clickedTileCount++;
+
+        if (_clickedTileCount == _totalNotClickedTiles)
+        {
+            Win();
+            Debug.Log("Oyun kazandýn!");
+        }
+        Debug.Log($"<color=pink>Týk týk sayýsý = {_clickedTileCount}</color");
+        Debug.Log($"<color=lime>Not Týk týk sayýsý = {_totalNotClickedTiles}</color>");
+        
+    }
+
     private void OnDisable()
     {
         UIController.Instance.GetDifficultySlider().onValueChanged.RemoveListener(SetGridSize);
@@ -90,12 +110,8 @@ public class GridManager : MonoBehaviour
                 _grid[x, y] = newTile;
 
                 newTile.transform.localPosition = position;
-                //_grid[x, y].tileController.UpdateMineCount();
             }
         }
-
-        /*Vector3 centerOffset = new Vector3(gridSizeX * _cellSize * 0.5f, gridSizeY * _cellSize * 0.5f, 0);
-        _gridStartPositionTransform.position = -centerOffset;*/
     }
 
     private void SetGridSize(float sliderValue)
@@ -141,19 +157,6 @@ public class GridManager : MonoBehaviour
         return _grid[x, y];
     }
 
-    public void AddTileToList(Vector2Int tileCoordinates)
-    {
-        if (!clickedTiles.Contains(tileCoordinates))
-        {
-            clickedTiles.Add(tileCoordinates);
-        }
-    }
-
-    // Týklanýlan kareleri kontrol etme
-    public bool IsTileClicked(Vector2Int tileCoordinates)
-    {
-        return clickedTiles.Contains(tileCoordinates);
-    }
 
     private void GridTransformController(Transform GridManagerTransform) // yer ayarlama for grid clones
     {
@@ -175,6 +178,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
+
     private static void Initialize(Transform transform, Vector3 position, Vector3 scale)
     {
         transform.position = position;
@@ -185,14 +189,15 @@ public class GridManager : MonoBehaviour
 
     public void Win()
     {
-        statusText.text = "You Win Bitch <3";
+        isGameWin = true;
+        Debug.Log("You Win Bitch <3");
+        GameManager.Instance.GameOver();
     }
     public void GameOver()
     {
         isGameOver = true;
-        Debug.Log("Oyun bitti!");
         GameManager.Instance.GameOver();
-        //statusText.text = "You Lost Loser :P";
+        Debug.Log( "You Lost Loser :P");
     }
 
     public bool IsGameOver() => isGameOver;
