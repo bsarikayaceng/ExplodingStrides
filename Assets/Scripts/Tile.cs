@@ -46,7 +46,7 @@ public class Tile : MonoBehaviour
     {
         if (isClicked) return;
         GridManager.Instance.TileClickCount();
-        if (gridManager.IsGameOver())
+        if (gridManager.IsGameOver()||gridManager.IsGameWin())
         {
             return; // Oyun bitmişse tıklamalar devre dışı
         }

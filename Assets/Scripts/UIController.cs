@@ -27,11 +27,11 @@ public class UIController : MonoBehaviour
 
     public void Update()
     {
-        if (GridManager.Instance.isGameOver)
+        if (GridManager.Instance.IsGameOver())
         {
             ActivateGameOverText();
         }
-        else if (GridManager.Instance.isGameWin)
+        else if (GridManager.Instance.IsGameWin())
         {
             ActivateGameWinText();
         }

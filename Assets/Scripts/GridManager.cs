@@ -22,8 +22,8 @@ public class GridManager : MonoBehaviour
     private Tile[,] _grid;
 
     public Tile tilePrefab;
-    public bool isGameOver = false;
-    public bool isGameWin = false;
+    private bool isGameOver = false;
+    private bool isGameWin = false;
     public float minePercentage = 0.2f; // Mayýn yüzdesi
 
     private int _clickedTileCount = 0;
@@ -76,19 +76,18 @@ public class GridManager : MonoBehaviour
         Debug.Log($"<color=aqua>totalTiles = {totalTiles}</color>");
     }
 
-   
+
     internal void TileClickCount()
     {
-            _clickedTileCount++;
+        _clickedTileCount++;
 
-            if (_clickedTileCount == _totalNotClickedTiles)
-            {
-                Win();
-                Debug.Log("Oyun kazandýn!");
-            }
-            Debug.Log($"<color=magenta>Týk týk sayýsý = {_clickedTileCount}</color>");
-            Debug.Log($"<color=lime>Not Týk týk sayýsý = {_totalNotClickedTiles}</color>");
-
+        if (_clickedTileCount == _totalNotClickedTiles)
+        {
+            Win();
+            Debug.Log("Oyun kazandýn!");
+        }
+        Debug.Log($"<color=magenta>Týk týk sayýsý = {_clickedTileCount}</color>");
+        Debug.Log($"<color=lime>Not Týk týk sayýsý = {_totalNotClickedTiles}</color>");
     }
    
     private void OnDisable()
@@ -202,7 +201,7 @@ public class GridManager : MonoBehaviour
     }
 
     public bool IsGameOver() => isGameOver;
-
+    public bool IsGameWin() => isGameWin;
     public int GetGridSizeX => _gridSizeX;
     public int GetGridSizeY => _gridSizeY;
 }
