@@ -18,7 +18,8 @@ public class Tile : MonoBehaviour
     public TextMeshPro mineCountText;
     public GameObject gameOver;
     public GameObject grass;
-    
+
+    private bool isClicked=false;
 
     public static Tile Instance { get; private set; }
 
@@ -43,12 +44,14 @@ public class Tile : MonoBehaviour
     }
     public void OnTileClick()
     {
+        if (isClicked) return;
         GridManager.Instance.TileClickCount();
         if (gridManager.IsGameOver())
         {
             return; // Oyun bitmişse tıklamalar devre dışı
         }
 
+        isClicked = true;
         int neighborMineCount = tileController.CalculateNeighborMineCount(x, y);
 
         if (_unitState == UnitState.Mine)
@@ -74,8 +77,10 @@ public class Tile : MonoBehaviour
             Debug.Log($"Tıklanan karenin koordinatları: X = {x}, Y = {y}");
         }
     }
-
+    
+    public bool IsClicked() => isClicked;
 }
+
 
 public enum UnitState
 {

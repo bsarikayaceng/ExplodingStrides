@@ -6,15 +6,15 @@ using UnityEngine.SceneManagement;
 public class GridManager : MonoBehaviour
 {
     public static GridManager Instance { get; private set; }
-    
+
     [SerializeField]
     private Transform _gridStartPositionTransform;
-    
+
     public List<Vector2Int> MinePositions { get => minePositions; set => minePositions = value; }
 
     private int _gridSizeX;
     private int _gridSizeY;
-    
+
     public TextMeshProUGUI statusText;
     private List<Vector2Int> minePositions = new(); // Mayýn konumlarýný tutacak liste
 
@@ -47,13 +47,13 @@ public class GridManager : MonoBehaviour
     {
         if (!PlayerPrefs.HasKey(ConstantVariables.DifficultyKey))
             SetGridSize(1);
-        
+
         int selectedDifficulty = PlayerPrefs.GetInt(ConstantVariables.DifficultyKey);
-        
+
         UIController.Instance.SetDifficultySliderValue(selectedDifficulty);
 
         int selectedDifficultyGridSize =
-            _difficultyTypeToGridSize[(DifficultyType) selectedDifficulty];
+            _difficultyTypeToGridSize[(DifficultyType)selectedDifficulty];
 
         _gridSizeX = selectedDifficultyGridSize;
         _gridSizeY = selectedDifficultyGridSize;
@@ -71,25 +71,26 @@ public class GridManager : MonoBehaviour
             TileController.PrintNeighbourCoordinates();
         }
         int totalTiles = _gridSizeX * _gridSizeY;
-        _totalNotClickedTiles = Mathf.RoundToInt(totalTiles-(totalTiles * minePercentage));
+        _totalNotClickedTiles = Mathf.RoundToInt(totalTiles - (totalTiles * minePercentage));
         UIController.Instance.GetDifficultySlider().onValueChanged.AddListener(SetGridSize);
         Debug.Log($"<color=aqua>totalTiles = {totalTiles}</color>");
     }
 
+   
     internal void TileClickCount()
     {
-        _clickedTileCount++;
+            _clickedTileCount++;
 
-        if (_clickedTileCount == _totalNotClickedTiles)
-        {
-            Win();
-            Debug.Log("Oyun kazandýn!");
-        }
-        Debug.Log($"<color=pink>Týk týk sayýsý = {_clickedTileCount}</color");
-        Debug.Log($"<color=lime>Not Týk týk sayýsý = {_totalNotClickedTiles}</color>");
-        
+            if (_clickedTileCount == _totalNotClickedTiles)
+            {
+                Win();
+                Debug.Log("Oyun kazandýn!");
+            }
+            Debug.Log($"<color=magenta>Týk týk sayýsý = {_clickedTileCount}</color>");
+            Debug.Log($"<color=lime>Not Týk týk sayýsý = {_totalNotClickedTiles}</color>");
+
     }
-
+   
     private void OnDisable()
     {
         UIController.Instance.GetDifficultySlider().onValueChanged.RemoveListener(SetGridSize);
