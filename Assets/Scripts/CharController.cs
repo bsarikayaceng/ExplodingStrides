@@ -19,26 +19,27 @@ public class CharController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //TouchMove();  
+
     }
 
-    void TouchMove()
+    public void TouchMove(Vector3 newPos)
     {
-        if (Input.GetMouseButton(0))
-        {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            if (mousePos.x > 1)
-            {
-                //move right
-                transform.Translate(moveSpeed, 0, 0);
-            }
-            else if (mousePos.x < -1)
-            {
-                //move left
-                transform.Translate(-moveSpeed, 0, 0);
-            }
-        }
+        //Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        //if (mousePos.x > 1)
+        //{
+        //    //move right
+        //    transform.Translate(moveSpeed, 0, 0);
+        //}
+        //else if (mousePos.x < -1)
+        //{
+        //    //move left
+        //    transform.Translate(-moveSpeed, 0, 0);
+        //}
+
+        transform.SetPositionAndRotation(newPos,Quaternion.identity);
+        
 
     }
 

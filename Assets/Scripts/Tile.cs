@@ -11,7 +11,7 @@ public class Tile : MonoBehaviour
 
     private GridManager gridManager;
     public TileController tileController;
-
+    public CharController chCont;
     public int x;
     public int y;
 
@@ -43,6 +43,10 @@ public class Tile : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        chCont = GameObject.FindGameObjectWithTag("Rabbit").GetComponent<CharController>();
+    }
 
     public void GetCoordinates(int x, int y)
     {
@@ -78,8 +82,17 @@ public class Tile : MonoBehaviour
         else
         {
             grass.SetActive(false);
+            OpenedGridCount++;
             //Vector3 clickedPosition = new Vector3(x, y, rabbitTransform.position.z); // Tıkladığınız karenin konumu
-           // rabbitTransform.position = clickedPosition; // Tavşan karakterin pozisyonunu güncelle
+            // rabbitTransform.position = clickedPosition; // Tavşan karakterin pozisyonunu güncelle
+
+            if (GridManager.Instance.CheckForWin())
+            {
+                Debug.Log("You Win!");
+                // Call the Win method in GridManager
+                GridManager.Instance.Win();
+            }
+
             if (neighborMineCount == 0)
             {
                 mineCountText.text = neighborMineCount.ToString();
@@ -93,6 +106,7 @@ public class Tile : MonoBehaviour
             }
 
             Debug.Log($"Tıklanan karenin koordinatları: X = {x}, Y = {y}");
+            chCont.TouchMove(new Vector3(transform.position.x , -2,transform.position.z));
         }
     }
 
@@ -136,9 +150,19 @@ public class Tile : MonoBehaviour
                 // Otherwise, just open the neighbor tile
                 neighbour.TileState = TileState.Open;
                 neighbour.grass.SetActive(false);
+                OpenedGridCount++;
                 neighbour.mineCountText.gameObject.SetActive(true);
             }
         }
+
+        CalculateOpened();
+        Debug.Log($"<color=green> Opened değeri:{OpenedGridCount}</color>");
+    }
+
+    public void CalculateOpened()
+    {
+        OpenedGridCount = +OpenedGridCount;
+
     }
 
     
