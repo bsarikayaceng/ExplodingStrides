@@ -19,8 +19,10 @@ public class Tile : MonoBehaviour
     public GameObject gameOver;
     public GameObject grass;
 
-    private bool isClicked=false;
+    public int OpenedGridCount;
 
+    private bool isClicked=false;
+    
     private bool isOpen = false;
 
     public static Tile Instance { get; private set; }
@@ -98,32 +100,48 @@ public class Tile : MonoBehaviour
 
     public void OpenZeroTilesRecursively()
     {
+        // Return if the tile is already open
         if (TileState == TileState.Open)
             return;
 
+        // Open the current tile
         TileState = TileState.Open;
         grass.SetActive(false);
+        OpenedGridCount++;
         mineCountText.gameObject.SetActive(true);
 
+        // Get the neighbors
         List<Tile> neighbours = GetNeighbours(x, y);
 
+        // Loop through each neighbor
         foreach (var neighbour in neighbours)
         {
-            if (neighbour.TileState != TileState.Open)
-            {
-                int neighborMineCount = neighbour.tileController.CalculateNeighborMineCount(neighbour.x, neighbour.y);
-                neighbour.mineCountText.text = neighborMineCount.ToString();
+            // Skip if the neighbor is already open
+            if (neighbour.TileState == TileState.Open)
+                continue;
 
-                if (neighborMineCount == 0)
-                {
-                    neighbour.OpenZeroTilesRecursively();
-                }
+            // Calculate the neighbor's mine count
+            int neighborMineCount = neighbour.tileController.CalculateNeighborMineCount(neighbour.x, neighbour.y);
+
+            // Update the neighbor's mine count text
+            neighbour.mineCountText.text = neighborMineCount.ToString();
+
+            // If the neighbor has zero mines around it, open it recursively
+            if (neighborMineCount == 0)
+            {
+                neighbour.OpenZeroTilesRecursively();
+            }
+            else
+            {
+                // Otherwise, just open the neighbor tile
+                neighbour.TileState = TileState.Open;
+                neighbour.grass.SetActive(false);
+                neighbour.mineCountText.gameObject.SetActive(true);
             }
         }
     }
 
-
-
+    
     private List<Tile> GetNeighbours(int x, int y)
     {
         List<Tile> neighbours = new List<Tile>();
@@ -146,7 +164,7 @@ public class Tile : MonoBehaviour
     }
 
 
-
+    
 
     public bool IsClicked() => isClicked;
 }
