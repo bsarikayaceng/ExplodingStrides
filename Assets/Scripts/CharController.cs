@@ -1,26 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class CharController : MonoBehaviour
 {
+    RabbitAnimationController RabbitAnimationController;
+    //public Vector3  targetPosition = new Vector3;
     public float moveSpeed;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject rabbit;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void FixedUpdate()
-    {
-
-    }
 
     public void TouchMove(Vector3 newPos)
     {
@@ -39,7 +26,9 @@ public class CharController : MonoBehaviour
         //}
 
         transform.SetPositionAndRotation(newPos,Quaternion.identity);
-        
+        RabbitAnimationController.PlayRunAnimation();
+
+        //rabbit.transform.DOMove(targetPosition.position,moveSpeed);
 
     }
 

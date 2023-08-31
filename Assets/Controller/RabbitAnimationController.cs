@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RabbitAnimationController : MonoBehaviour
@@ -8,7 +6,7 @@ public class RabbitAnimationController : MonoBehaviour
     [SerializeField] Animator animator;
 
 
-    public void PlayRunAnination()
+    public void PlayRunAnimation()
     {
         animator.SetTrigger("Run");
     }

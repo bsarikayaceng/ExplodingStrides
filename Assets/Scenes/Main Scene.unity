@@ -1703,6 +1703,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rabbit
       objectReference: {fileID: 0}
+    - target: {fileID: 100042, guid: 0962bdca27eaca34aaa15f7fdf608faf, type: 3}
+      propertyPath: m_TagString
+      value: Rabbit
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0962bdca27eaca34aaa15f7fdf608faf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -0.00007913667
@@ -3224,11 +3228,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileController: {fileID: 0}
+  chCont: {fileID: 0}
   x: 0
   y: 0
   mineCountText: {fileID: 0}
   gameOver: {fileID: 0}
   grass: {fileID: 0}
+  OpenedGridCount: 0
   rabbitTransform: {fileID: 797998850}
 --- !u!1001 &1190695447
 PrefabInstance:
@@ -3837,11 +3843,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileController: {fileID: 0}
+  chCont: {fileID: 0}
   x: 0
   y: 0
   mineCountText: {fileID: 0}
   gameOver: {fileID: 0}
   grass: {fileID: 0}
+  OpenedGridCount: 0
   rabbitTransform: {fileID: 797998850}
 --- !u!1001 &1534577183
 PrefabInstance:
