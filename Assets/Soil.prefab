@@ -102,11 +102,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8be63718305672742967cc683761fcf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grass: {fileID: 5495232984499339032}
   tileController: {fileID: 2448068182282032907}
+  chCont: {fileID: 0}
   x: 0
   y: 0
   mineCountText: {fileID: 9069632131708175102}
+  gameOver: {fileID: 0}
+  grass: {fileID: 5495232984499339032}
+  OpenedGridCount: 0
+  rabbitTransform: {fileID: 0}
 --- !u!65 &8823262327962922368
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -29,6 +29,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5802971465475917521}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 6, y: 6, z: 6}
@@ -37,7 +38,6 @@ Transform:
   - {fileID: 3925416211219765827}
   - {fileID: 8240785199896538560}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1319970353530349662
 MeshFilter:
@@ -102,12 +102,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8be63718305672742967cc683761fcf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grass: {fileID: 7193685092268986757}
   tileController: {fileID: 6417480306082061690}
+  chCont: {fileID: 0}
   x: 0
   y: 0
   mineCountText: {fileID: 2183136867503219476}
   gameOver: {fileID: 0}
+  grass: {fileID: 7193685092268986757}
+  OpenedGridCount: 0
+  rabbitTransform: {fileID: 0}
 --- !u!65 &1276747684795066501
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -185,7 +188,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9080964405746513674}
-  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -351,13 +353,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7193685092268986757}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.02}
   m_LocalScale: {x: 1, y: 1, z: 2.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9080964405746513674}
-  m_RootOrder: -2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7230631239854088433
 MeshFilter:

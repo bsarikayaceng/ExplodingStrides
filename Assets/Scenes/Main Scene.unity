@@ -1321,7 +1321,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc9c0886d1ebcee48868159a46cb014f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
+  targetPosition: {x: 0, y: 0, z: 0}
+  moveSpeed: 5
+  rabbitTransform: {fileID: 797998850}
+--- !u!114 &336954302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336954298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dcab6c85ec09a342a30d1f5148d6354, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!1001 &350596172
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2081,6 +2096,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100042, guid: 0962bdca27eaca34aaa15f7fdf608faf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 797998851}
+    - targetCorrespondingSourceObject: {fileID: 100042, guid: 0962bdca27eaca34aaa15f7fdf608faf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 797998853}
   m_SourcePrefab: {fileID: 100100000, guid: 0962bdca27eaca34aaa15f7fdf608faf, type: 3}
 --- !u!1001 &624544133
 PrefabInstance:
@@ -2412,6 +2430,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 648dda4c2b9372040b7bca38830bc71f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputControl: {fileID: 0}
+  cameraMain: {fileID: 0}
   targetTile: {fileID: 5087406226676990752, guid: ebd39ac2c1e61d1499c6565d8ac7fbc9, type: 3}
 --- !u!4 &797998850 stripped
 Transform:
@@ -2425,12 +2445,40 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 797998840}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc9c0886d1ebcee48868159a46cb014f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.2
+  targetPosition: {x: 0, y: 0, z: 0}
+  moveSpeed: 1.333
+  rabbitTransform: {fileID: 797998850}
+--- !u!143 &797998853
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 797998840}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &805072176
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3234,7 +3282,6 @@ MonoBehaviour:
   mineCountText: {fileID: 0}
   gameOver: {fileID: 0}
   grass: {fileID: 0}
-  OpenedGridCount: 0
   rabbitTransform: {fileID: 797998850}
 --- !u!1001 &1190695447
 PrefabInstance:
@@ -3849,7 +3896,6 @@ MonoBehaviour:
   mineCountText: {fileID: 0}
   gameOver: {fileID: 0}
   grass: {fileID: 0}
-  OpenedGridCount: 0
   rabbitTransform: {fileID: 797998850}
 --- !u!1001 &1534577183
 PrefabInstance:
@@ -4860,6 +4906,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5084875387805126971, guid: cfd121dbce673034289be9aefb530544, type: 3}
       insertIndex: -1
       addedObject: {fileID: 336954300}
+    - targetCorrespondingSourceObject: {fileID: 5084875387805126971, guid: cfd121dbce673034289be9aefb530544, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 336954302}
   m_SourcePrefab: {fileID: 100100000, guid: cfd121dbce673034289be9aefb530544, type: 3}
 --- !u!1001 &5183643079631009140
 PrefabInstance:
