@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public int openedGrassCounter;
     public static GameManager Instance { get; private set; }
 
     private void Awake()

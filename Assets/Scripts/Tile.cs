@@ -17,11 +17,8 @@ public class Tile : MonoBehaviour
     public GameObject gameOver;
     public GameObject grass;
 
-    public int OpenedGridCount;
-
     private bool isClicked=false;
     
-    private bool isOpen = false;
 
     public static Tile Instance { get; private set; }
 
@@ -69,9 +66,9 @@ public class Tile : MonoBehaviour
             return; // Oyun bitmişse tıklamalar devre dışı
         }
 
+        //chCont.TouchMove(transform.position);
         isClicked = true;
         int neighborMineCount = tileController.CalculateNeighborMineCount(x, y);
-
         if (_unitState == UnitState.Mine)
         {
             Debug.Log("Mayına tıklandı");
@@ -79,8 +76,9 @@ public class Tile : MonoBehaviour
         }
         else
         {
+            
             grass.SetActive(false);
-            OpenedGridCount++;
+            GameManager.Instance.openedGrassCounter++;
             //Vector3 clickedPosition = new Vector3(x, y, rabbitTransform.position.z); // Tıkladığınız karenin konumu
             // rabbitTransform.position = clickedPosition; // Tavşan karakterin pozisyonunu güncelle
 
@@ -99,15 +97,12 @@ public class Tile : MonoBehaviour
             else
             {
                 Debug.Log("Mayına tıklanmadı");
-
-                mineCountText.text = neighborMineCount.ToString();
             }
 
             Debug.Log($"Tıklanan karenin koordinatları: X = {x}, Y = {y}");
-            chCont.TouchMove(new Vector3(transform.position.x , -2,transform.position.z));
+            chCont.TouchMove(new Vector3 (transform.position.x , -2,transform.position.z));
         }
     }
-
 
 
     public void OpenZeroTilesRecursively()
@@ -118,11 +113,12 @@ public class Tile : MonoBehaviour
 
         // Open the current tile
         TileState = TileState.Open;
+        
         grass.SetActive(false);
-        OpenedGridCount++;
+        isClicked = true;
+        GameManager.Instance.openedGrassCounter++;
         mineCountText.gameObject.SetActive(true);
 
-        // Get the neighbors
         List<Tile> neighbours = GetNeighbours(x, y);
 
         // Loop through each neighbor
@@ -135,35 +131,26 @@ public class Tile : MonoBehaviour
             // Calculate the neighbor's mine count
             int neighborMineCount = neighbour.tileController.CalculateNeighborMineCount(neighbour.x, neighbour.y);
 
-            // Update the neighbor's mine count text
             neighbour.mineCountText.text = neighborMineCount.ToString();
 
-            // If the neighbor has zero mines around it, open it recursively
             if (neighborMineCount == 0)
             {
                 neighbour.OpenZeroTilesRecursively();
             }
             else
             {
-                // Otherwise, just open the neighbor tile
                 neighbour.TileState = TileState.Open;
+
                 neighbour.grass.SetActive(false);
-                OpenedGridCount++;
+                neighbour.isClicked = true;
+                GameManager.Instance.openedGrassCounter++;
                 neighbour.mineCountText.gameObject.SetActive(true);
             }
+
         }
-
-        CalculateOpened();
-        Debug.Log($"<color=green> Opened değeri:{OpenedGridCount}</color>");
+        
     }
 
-    public void CalculateOpened()
-    {
-        OpenedGridCount = +OpenedGridCount;
-
-    }
-
-    
     private List<Tile> GetNeighbours(int x, int y)
     {
         List<Tile> neighbours = new List<Tile>();
@@ -184,9 +171,6 @@ public class Tile : MonoBehaviour
 
         return neighbours;
     }
-
-
-    
 
     public bool IsClicked() => isClicked;
 }

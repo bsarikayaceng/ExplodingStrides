@@ -26,7 +26,7 @@ public class GridManager : MonoBehaviour
     private bool isGameWin = false;
     public float minePercentage = 0.2f; // Mayýn yüzdesi
 
-    private int _clickedTileCount = 0;
+    //private int _clickedTileCount = 0;
     private int _totalNotClickedTiles;
 
     private List<Vector2Int> clickedTiles = new(); //Týklanan kareleri tutacak liste
@@ -76,17 +76,14 @@ public class GridManager : MonoBehaviour
         Debug.Log($"<color=aqua>totalTiles = {totalTiles}</color>");
     }
 
-
     internal void TileClickCount()
     {
-        _clickedTileCount++;
 
-        if (_clickedTileCount == _totalNotClickedTiles)
+        if (GameManager.Instance.openedGrassCounter-1 == _totalNotClickedTiles)
         {
             Win();
             Debug.Log("Oyun kazandýn!");
         }
-        Debug.Log($"<color=magenta>Týk týk sayýsý = {_clickedTileCount}</color>");
         Debug.Log($"<color=lime>Not Týk týk sayýsý = {_totalNotClickedTiles}</color>");
     }
    
@@ -186,6 +183,10 @@ public class GridManager : MonoBehaviour
     }
 
 
+    internal bool CheckForWin()
+    {
+        return GameManager.Instance.openedGrassCounter-1 == _totalNotClickedTiles;
+    }
 
     public void Win()
     {
